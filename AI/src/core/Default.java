@@ -4,7 +4,7 @@
 package core;
 
 /**
- * @author David
+ * @author Dave (http://about.me/david.herrera)
  *
  */
 public class Default {
