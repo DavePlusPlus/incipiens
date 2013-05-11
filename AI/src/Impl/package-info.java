@@ -1,12 +1,8 @@
 /**
  * 
  */
-package core;
-
 /**
  * @author Dave (http://about.me/david.herrera)
  *
  */
-public interface Impl {
-
-}
+package Impl;
