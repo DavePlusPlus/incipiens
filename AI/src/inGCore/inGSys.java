@@ -1,18 +1,18 @@
 /**
  * 
  */
-package core;
+package inGCore;
 
 /**
  * @author Dave (http://about.me/david.herrera)
  *
  */
-public class Controller {
+public class inGSys {
 
 	/**
 	 * 
 	 */
-	public Controller() {
+	public inGSys() {
 		// TODO Auto-generated constructor stub
 	}
 
