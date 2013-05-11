@@ -7,12 +7,12 @@ package core;
  * @author Dave (http://about.me/david.herrera)
  *
  */
-public class Init {
+public class Controller {
 
 	/**
 	 * 
 	 */
-	public Init() {
+	public Controller() {
 		// TODO Auto-generated constructor stub
 	}
 
