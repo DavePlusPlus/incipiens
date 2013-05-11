@@ -4,24 +4,40 @@
 package inGCore;
 
 /**
+ * 
  * @author Dave (http://about.me/david.herrera)
- *
  */
 public class inGSys {
 
-	/**
-	 * 
-	 */
 	public inGSys() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @param args
+	 * 
+	 * @author Dave (http://about.me/david.herrera)
+	 *
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public class Controller implements inGEnv {
+		
+	}
+	
+	/**
+	 * 
+	 * @author Dave (http://about.me/david.herrera)
+	 *
+	 */
+	public class Application implements inGEnv {
+		
+	}
+	
+	/**
+	 * 
+	 * @author Dave (http://about.me/david.herrera)
+	 *
+	 */
+	public class Profiler implements inGEnv {
+		
 	}
 
 }
