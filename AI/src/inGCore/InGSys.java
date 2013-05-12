@@ -7,9 +7,9 @@ package inGCore;
  * 
  * @author Dave (http://about.me/david.herrera)
  */
-public class inGSys {
+public class InGSys {
 
-	public inGSys() {
+	public InGSys() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,7 +18,7 @@ public class inGSys {
 	 * @author Dave (http://about.me/david.herrera)
 	 *
 	 */
-	public class Controller implements inGEnv {
+	public class Controller implements InGEnv {
 		
 	}
 	
@@ -27,7 +27,7 @@ public class inGSys {
 	 * @author Dave (http://about.me/david.herrera)
 	 *
 	 */
-	public class Application implements inGEnv {
+	public class Application implements InGEnv {
 		
 	}
 	
@@ -36,7 +36,7 @@ public class inGSys {
 	 * @author Dave (http://about.me/david.herrera)
 	 *
 	 */
-	public class Profiler implements inGEnv {
+	public class Profiler implements InGEnv {
 		
 	}
 
