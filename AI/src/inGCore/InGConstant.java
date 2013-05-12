@@ -8,5 +8,5 @@ package inGCore;
  *
  */
 public enum InGConstant {
-
+	
 }
