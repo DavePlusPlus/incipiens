@@ -3,22 +3,22 @@
  */
 package inGCore;
 
+import javafx.application.Application;
+
 /**
  * 
  * @author Dave (http://about.me/david.herrera)
  */
 public class InGSys {
 
-	public InGSys() {
-		// TODO Auto-generated constructor stub
-	}
+	public InGSys() {}
 
 	/**
 	 * 
 	 * @author Dave (http://about.me/david.herrera)
 	 *
 	 */
-	public class Controller implements InGEnv {
+	public static abstract class InGController implements InGEnv {
 		
 	}
 	
@@ -27,7 +27,7 @@ public class InGSys {
 	 * @author Dave (http://about.me/david.herrera)
 	 *
 	 */
-	public class Application implements InGEnv {
+	public static abstract class InGApplication extends Application implements InGEnv {
 		
 	}
 	
@@ -36,7 +36,7 @@ public class InGSys {
 	 * @author Dave (http://about.me/david.herrera)
 	 *
 	 */
-	public class Profiler implements InGEnv {
+	public static abstract class InGProfiler implements InGEnv {
 		
 	}
 
