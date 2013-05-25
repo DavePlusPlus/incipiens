@@ -1,12 +1,12 @@
 /**
  * 
  */
-package inGCore;
+package Impl;
 
 /**
- * 
  * @author Dave (http://about.me/david.herrera)
+ *
  */
-public interface InGEnv<T> {
-	
+public interface Inter<T> {
+	public T get();
 }
