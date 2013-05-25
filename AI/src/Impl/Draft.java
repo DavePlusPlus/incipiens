@@ -17,4 +17,5 @@ public class Draft<T> implements Inter<T> {
 	public T get() {
 		return t;
 	}
+	
 }
