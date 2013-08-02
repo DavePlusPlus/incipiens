@@ -1,6 +1,6 @@
 package draft;
 
-/**
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,13 +17,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+*/
 
-public class Sample extends Application {
+//public class Sample extends Application {
+public class Sample {
 	
-	static Text txt = new Text();
+	//static Text txt = new Text();
 	
 	public static void main(String[] args) throws ClassNotFoundException {
-		launch(args);
+		//launch(args);
 		
 		Class.forName("org.sqlite.JDBC");
 		Connection connection = null;
@@ -52,6 +55,7 @@ public class Sample extends Application {
 		}
 	}
 	
+	/**
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("Stage Title");
@@ -66,6 +70,5 @@ public class Sample extends Application {
 		pane.add(txt, 0, 0);
 		stage.show();
 	}
+	*/
 }
-
-**/
