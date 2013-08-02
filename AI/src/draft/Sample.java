@@ -1,5 +1,7 @@
 package draft;
 
+/**
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -65,3 +67,5 @@ public class Sample extends Application {
 		stage.show();
 	}
 }
+
+**/
