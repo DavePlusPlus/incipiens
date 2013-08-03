@@ -1,7 +1,5 @@
 package draft;
 
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -23,12 +21,12 @@ import javafx.stage.Stage;
 public class Sample {
 	
 	//static Text txt = new Text();
+	static Connection connection;
 	
 	public static void main(String[] args) throws ClassNotFoundException {
 		//launch(args);
 		
 		Class.forName("org.sqlite.JDBC");
-		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:Data/dbFile.db");
 			Statement statement = connection.createStatement();
