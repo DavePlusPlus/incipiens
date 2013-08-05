@@ -20,13 +20,20 @@ public class OrmUsage {
 	 */
 	public static void main(String[] args) throws Exception {
 		String[][] fields = new String[][] {
-				{"newField1", "integer", "primary key"},
-				{"newField2", "varchar(26)"},
-				{"newField3", "integer"},
-				{"newField4", "varchar(55)"}
+				{"id", "integer", "primary key"},
+				{"field1", "varchar(25)"},
+				{"field2", "integer"},
+				{"field3", "varchar(25)"}
 		};
 		
 		String[] column = new String[] {"newColumn2", "varchar(6)"};
+		
+		String[][] data = new String[][] {
+				{"id", "5"},
+				{"field1", "test2"},
+				{"field2", "7"},
+				{"field3", "test50"}
+		};
 		
 		DataObject db = new DataAccess();
 	}

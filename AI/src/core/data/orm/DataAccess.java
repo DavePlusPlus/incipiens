@@ -56,6 +56,26 @@ public class DataAccess implements DataObject {
 		return plainFields;
 	}
 	
+	/**
+	 * 
+	 */
+	private String[] arrayData(String[][] data) {
+		String[] orderedData = new String[2];
+		String plainFields = "";
+		String plainValues = "";
+		for(int i = 0; i < data.length; i++) {
+			plainFields += data[i][0];
+			plainValues += "'" + data[i][1] + "'";
+			if(i < data.length - 1) {
+				plainFields += ", ";
+				plainValues += ", ";
+			}
+		}
+		orderedData[0] = plainFields;
+		orderedData[1] = plainValues;
+		return orderedData;
+	}
+	
 	public void close() throws SQLException {
 		connection.close();
 	}
@@ -80,7 +100,6 @@ public class DataAccess implements DataObject {
 		try {
 			statement = connection.createStatement();
 			statement.execute("drop table if exists " + tableName);
-			statement.close();
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {
@@ -95,7 +114,6 @@ public class DataAccess implements DataObject {
 		try {
 			statement = connection.createStatement();
 			statement.execute("alter table " + oldName + " rename to " + newName);
-			statement.close();
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {
@@ -110,7 +128,6 @@ public class DataAccess implements DataObject {
 		try {
 			statement = connection.createStatement();
 			statement.execute("alter table " + tableName + " add column " + arrayToString(columnDefinition));
-			statement.close();
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {
@@ -120,6 +137,32 @@ public class DataAccess implements DataObject {
 		return this;
 	}
 	
+	public DataAccess truncateTable(String tableName) throws SQLException {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.execute("delete from " + tableName);
+		} catch(SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			if(statement != null)
+				statement.close();
+		}
+		return this;
+	}
 	
+	public DataObject insert(String tableName, String[][] data) throws SQLException {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.execute("insert into " + tableName + " (" + arrayData(data)[0] + ") values (" + arrayData(data)[1] + ")");
+		} catch(SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			if(statement != null)
+				statement.close();
+		}
+		return this;
+	}
 
 }
