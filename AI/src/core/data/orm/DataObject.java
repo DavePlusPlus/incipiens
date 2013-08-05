@@ -99,7 +99,12 @@ public interface DataObject {
 	 * @throws SQLException
 	 */
 	public ArrayList<ArrayList<String>> get(String sql) throws SQLException;
-	/*
+	
+	/**
+	 * Create a free SQL query that won't return a resultset.
+	 * @param sql
+	 * @throws SQLException
+	 */
 	public DataObject set(String sql) throws SQLException;
-	*/
+	
 }

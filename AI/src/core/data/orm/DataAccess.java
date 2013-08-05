@@ -97,116 +97,35 @@ public class DataAccess implements DataObject {
 	}
 	
 	public DataAccess createTable(String tableName, String[][] fields) throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("drop table if exists " + tableName);
-			statement.execute("create table " + tableName + " (" + bidimensionalArrayToString(fields) + ")");
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("drop table if exists " + tableName).set("create table " + tableName + " (" + bidimensionalArrayToString(fields) + ")");
 	}
 	
 	public DataAccess dropTable(String tableName) throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("drop table if exists " + tableName);
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("drop table if exists " + tableName);
 	}
 	
 	public DataAccess renameTable(String oldName, String newName) throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("alter table " + oldName + " rename to " + newName);
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("alter table " + oldName + " rename to " + newName);
 	}
 	
 	public DataAccess addColumn(String tableName, String[] columnDefinition)throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("alter table " + tableName + " add column " + arrayToString(columnDefinition, " "));
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("alter table " + tableName + " add column " + arrayToString(columnDefinition, " "));
 	}
 	
 	public DataAccess truncateTable(String tableName) throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("delete from " + tableName);
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("delete from " + tableName);
 	}
 	
 	public DataAccess insert(String tableName, String[][] data) throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("insert into " + tableName + " (" + doublePlainArrayData(data)[0] + ") values (" + doublePlainArrayData(data)[1] + ")");
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("insert into " + tableName + " (" + doublePlainArrayData(data)[0] + ") values (" + doublePlainArrayData(data)[1] + ")");
 	}
 	
 	public DataAccess update(String tableName, String[][] data, String[] where) throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("update " + tableName + " set " + singlePlainArrayData(data) + " where " + where[0] + " = '" + where[1] + "'");
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("update " + tableName + " set " + singlePlainArrayData(data) + " where " + where[0] + " = '" + where[1] + "'");
 	}
 	
 	public DataAccess delete(String tableName, String[] where) throws SQLException {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.execute("delete from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
-		} catch(SQLException e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if(statement != null)
-				statement.close();
-		}
-		return this;
+		return this.set("delete from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
 	}
 	
 	public ArrayList<ArrayList<String>> select(String tableName, String[] fields, String[] where) throws SQLException {
@@ -238,6 +157,20 @@ public class DataAccess implements DataObject {
 			}
 		}
 		return resultSet;
+	}
+	
+	public DataAccess set(String sql) throws SQLException {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.execute(sql);
+		} catch(SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			if(statement != null)
+				statement.close();
+		}
+		return this;
 	}
 
 }
