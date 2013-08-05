@@ -59,7 +59,7 @@ public class DataAccess implements DataObject {
 	/**
 	 * 
 	 */
-	private String[] arrayData(String[][] data) {
+	private String[] doublePlainArrayData(String[][] data) {
 		String[] orderedData = new String[2];
 		String plainFields = "";
 		String plainValues = "";
@@ -74,6 +74,19 @@ public class DataAccess implements DataObject {
 		orderedData[0] = plainFields;
 		orderedData[1] = plainValues;
 		return orderedData;
+	}
+	
+	/**
+	 * 
+	 */
+	private String singlePlainArrayData(String[][] data) {
+		String plainData = "";
+		for(int i = 0; i < data.length; i++) {
+			plainData += data[i][0] + " = '" + data[i][1] + "'";
+			if(i < data.length - 1)
+				plainData += ", ";
+		}
+		return plainData;
 	}
 	
 	public void close() throws SQLException {
@@ -155,7 +168,35 @@ public class DataAccess implements DataObject {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
-			statement.execute("insert into " + tableName + " (" + arrayData(data)[0] + ") values (" + arrayData(data)[1] + ")");
+			statement.execute("insert into " + tableName + " (" + doublePlainArrayData(data)[0] + ") values (" + doublePlainArrayData(data)[1] + ")");
+		} catch(SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			if(statement != null)
+				statement.close();
+		}
+		return this;
+	}
+	
+	public DataObject update(String tableName, String[][] data, String[] where) throws SQLException {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.execute("update " + tableName + " set " + singlePlainArrayData(data) + " where " + where[0] + " = '" + where[1] + "'");
+		} catch(SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			if(statement != null)
+				statement.close();
+		}
+		return this;
+	}
+	
+	public DataObject delete(String tableName, String[] where) throws SQLException {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.execute("delete from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {

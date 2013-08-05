@@ -64,11 +64,24 @@ public interface DataObject {
 	 * @throws SQLException 
 	 */
 	public DataObject insert(String tableName, String[][] data) throws SQLException;
-	/*
-	public Object select() throws SQLException; //Figure out the type of the object.
 	
+	/**
+	 * Update data into a Database Table.
+	 * @param tableName. String, name of the table.
+	 * @param data. String array, data to be updated.
+	 * @param where. String array, where definition.
+	 * @throws SQLException 
+	 */
 	public DataObject update(String tableName, String[][] data, String[] where) throws SQLException;
 	
+	/**
+	 * Delete data from a Database Table.
+	 * @param tableName. String, name of the table.
+	 * @param where. String array, where definition.
+	 * @throws SQLException 
+	 */
 	public DataObject delete(String tableName, String[] where) throws SQLException;
+	/*
+	public Object select() throws SQLException; //Figure out the type of the object.
 	*/
 }

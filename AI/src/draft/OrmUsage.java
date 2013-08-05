@@ -19,6 +19,7 @@ public class OrmUsage {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
+		
 		String[][] fields = new String[][] {
 				{"id", "integer", "primary key"},
 				{"field1", "varchar(25)"},
@@ -29,11 +30,13 @@ public class OrmUsage {
 		String[] column = new String[] {"newColumn2", "varchar(6)"};
 		
 		String[][] data = new String[][] {
-				{"id", "5"},
-				{"field1", "test2"},
-				{"field2", "7"},
-				{"field3", "test50"}
+				//{"id", "9"},
+				{"field1", "newdata"},
+				{"field2", "258"},
+				{"field3", "wowdata"}
 		};
+		
+		String[] where = new String[] {"id", "8"};
 		
 		DataObject db = new DataAccess();
 	}
