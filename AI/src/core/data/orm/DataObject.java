@@ -92,4 +92,14 @@ public interface DataObject {
 	 */
 	public ArrayList<ArrayList<String>> select(String tableName, String[] fields, String[] where) throws SQLException;
 	
+	//Free Statements.
+	/**
+	 * Create a free SQL query that will return a resultset.
+	 * @param sql. String, SQL query.
+	 * @throws SQLException
+	 */
+	public ArrayList<ArrayList<String>> get(String sql) throws SQLException;
+	/*
+	public DataObject set(String sql) throws SQLException;
+	*/
 }

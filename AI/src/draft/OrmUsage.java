@@ -41,7 +41,7 @@ public class OrmUsage {
 		String[] where = new String[] {"field3", "gggg"};
 		
 		DataObject db = new DataAccess();
-		ArrayList<ArrayList<String>> result = db.select("logTable", fields, where);
+		ArrayList<ArrayList<String>> result = db.get("select id, field1, field2 from logTable where field3 = 'gggg'");
 		
 		
 		

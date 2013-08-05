@@ -6,6 +6,7 @@ package core.data.orm;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -209,15 +210,22 @@ public class DataAccess implements DataObject {
 	}
 	
 	public ArrayList<ArrayList<String>> select(String tableName, String[] fields, String[] where) throws SQLException {
+		return this.get("select " + arrayToString(fields, ", ") + " from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
+	}
+	
+	public ArrayList<ArrayList<String>> get(String sql) throws SQLException {
 		Statement statement = null;
 		ArrayList<ArrayList<String>> resultSet = new ArrayList<ArrayList<String>>();
 		try {
 			statement = connection.createStatement();
-			ResultSet rawResultSet = statement.executeQuery("select " + arrayToString(fields, ", ") + " from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
+			ResultSet rawResultSet = statement.executeQuery(sql);
+			ResultSetMetaData rsMetaData = rawResultSet.getMetaData();
+			int columnsNumber = rsMetaData.getColumnCount();
 			while(rawResultSet.next()) {
 				ArrayList<String> subResultSet = new ArrayList<String>();
-				for(int i = 0; i < fields.length; i++) {
-					subResultSet.add(rawResultSet.getString(fields[i]));
+				for(int i = 0; i < columnsNumber; i++) {
+					String currentColumnName = rsMetaData.getColumnName(i + 1);
+					subResultSet.add(rawResultSet.getString(currentColumnName));
 				}
 				resultSet.add(subResultSet);
 			}
@@ -226,7 +234,7 @@ public class DataAccess implements DataObject {
 		} finally {
 			if(statement != null) {
 				statement.close();
-				close();
+				this.close();
 			}
 		}
 		return resultSet;
