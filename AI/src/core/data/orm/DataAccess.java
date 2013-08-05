@@ -17,16 +17,16 @@ import java.util.ArrayList;
  */
 public class DataAccess implements DataObject {
 
-	Connection connection;
+	private Connection connection;
 	
 	public DataAccess() throws Exception {
 		Class.forName("org.sqlite.JDBC");
-		connection = DriverManager.getConnection("jdbc:sqlite:Data/dbFile.db");
+		this.connection = DriverManager.getConnection("jdbc:sqlite:Data/dbFile.db");
 	}
 	
 	public DataAccess(String driver, String conDB) throws Exception {
 		Class.forName(driver);
-		connection = DriverManager.getConnection(conDB);
+		this.connection = DriverManager.getConnection(conDB);
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class DataAccess implements DataObject {
 	}
 	
 	public void close() throws SQLException {
-		connection.close();
+		this.connection.close();
 	}
 	
 	public DataAccess createTable(String tableName, String[][] fields) throws SQLException {
@@ -136,7 +136,7 @@ public class DataAccess implements DataObject {
 		Statement statement = null;
 		ArrayList<ArrayList<String>> resultSet = new ArrayList<ArrayList<String>>();
 		try {
-			statement = connection.createStatement();
+			statement = this.connection.createStatement();
 			ResultSet rawResultSet = statement.executeQuery(sql);
 			ResultSetMetaData rsMetaData = rawResultSet.getMetaData();
 			int columnsNumber = rsMetaData.getColumnCount();
@@ -162,7 +162,7 @@ public class DataAccess implements DataObject {
 	public DataAccess set(String sql) throws SQLException {
 		Statement statement = null;
 		try {
-			statement = connection.createStatement();
+			statement = this.connection.createStatement();
 			statement.execute(sql);
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());

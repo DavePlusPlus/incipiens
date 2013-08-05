@@ -94,7 +94,7 @@ public interface DataObject {
 	
 	//Free Statements.
 	/**
-	 * Create a free SQL query that will return a resultset.
+	 * Create a free SQL query that will return a resultset in form of a ArrayList of ArrayList's.
 	 * @param sql. String, SQL query.
 	 * @throws SQLException
 	 */
