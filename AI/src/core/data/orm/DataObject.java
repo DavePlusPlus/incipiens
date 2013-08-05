@@ -4,6 +4,7 @@
 package core.data.orm;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * @author Dave (http://about.me/david.herrera)
@@ -81,7 +82,14 @@ public interface DataObject {
 	 * @throws SQLException 
 	 */
 	public DataObject delete(String tableName, String[] where) throws SQLException;
-	/*
-	public Object select() throws SQLException; //Figure out the type of the object.
-	*/
+	
+	/**
+	 * Select data from a Database Table.
+	 * @param tableName. String, name of the table.
+	 * @param fields. String array, selection of columns.
+	 * @param where. String array, where definition.
+	 * @throws SQLException 
+	 */
+	public ArrayList<ArrayList<String>> select(String tableName, String[] fields, String[] where) throws SQLException;
+	
 }

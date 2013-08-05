@@ -5,8 +5,10 @@ package core.data.orm;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * @author Dave (http://about.me/david.herrera)
@@ -29,12 +31,12 @@ public class DataAccess implements DataObject {
 	/**
 	 * 
 	 */
-	private String arrayToString(String[] columnDefinition) {
+	private String arrayToString(String[] array, String separator) {
 		String plainColumn = "";
-		for(int i = 0; i < columnDefinition.length; i++) {
-			plainColumn += columnDefinition[i];
-			if(i < columnDefinition.length - 1)
-				plainColumn += " ";
+		for(int i = 0; i < array.length; i++) {
+			plainColumn += array[i];
+			if(i < array.length - 1)
+				plainColumn += separator;
 		}
 		return plainColumn;
 	}
@@ -140,7 +142,7 @@ public class DataAccess implements DataObject {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
-			statement.execute("alter table " + tableName + " add column " + arrayToString(columnDefinition));
+			statement.execute("alter table " + tableName + " add column " + arrayToString(columnDefinition, " "));
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {
@@ -164,7 +166,7 @@ public class DataAccess implements DataObject {
 		return this;
 	}
 	
-	public DataObject insert(String tableName, String[][] data) throws SQLException {
+	public DataAccess insert(String tableName, String[][] data) throws SQLException {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
@@ -178,7 +180,7 @@ public class DataAccess implements DataObject {
 		return this;
 	}
 	
-	public DataObject update(String tableName, String[][] data, String[] where) throws SQLException {
+	public DataAccess update(String tableName, String[][] data, String[] where) throws SQLException {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
@@ -192,7 +194,7 @@ public class DataAccess implements DataObject {
 		return this;
 	}
 	
-	public DataObject delete(String tableName, String[] where) throws SQLException {
+	public DataAccess delete(String tableName, String[] where) throws SQLException {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
@@ -204,6 +206,30 @@ public class DataAccess implements DataObject {
 				statement.close();
 		}
 		return this;
+	}
+	
+	public ArrayList<ArrayList<String>> select(String tableName, String[] fields, String[] where) throws SQLException {
+		Statement statement = null;
+		ArrayList<ArrayList<String>> resultSet = new ArrayList<ArrayList<String>>();
+		try {
+			statement = connection.createStatement();
+			ResultSet rawResultSet = statement.executeQuery("select " + arrayToString(fields, ", ") + " from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
+			while(rawResultSet.next()) {
+				ArrayList<String> subResultSet = new ArrayList<String>();
+				for(int i = 0; i < fields.length; i++) {
+					subResultSet.add(rawResultSet.getString(fields[i]));
+				}
+				resultSet.add(subResultSet);
+			}
+		} catch(SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			if(statement != null) {
+				statement.close();
+				close();
+			}
+		}
+		return resultSet;
 	}
 
 }
