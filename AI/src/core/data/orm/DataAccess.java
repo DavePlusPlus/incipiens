@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class DataAccess implements DataObject {
 
 	private Connection connection;
-	private String table;
+	private String table = "";
 	
 	public DataAccess() throws Exception {
 		Class.forName("org.sqlite.JDBC");
@@ -114,6 +114,8 @@ public class DataAccess implements DataObject {
 	}
 	
 	public DataAccess createTable(String tableName, String[][] fields) throws SQLException {
+		if(this.table.isEmpty())
+			this.table = tableName;
 		return this.set("drop table if exists " + tableName).set("create table " + tableName + " (" + bidimensionalArrayToString(fields) + ")");
 	}
 	

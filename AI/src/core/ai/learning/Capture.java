@@ -10,5 +10,7 @@ package core.ai.learning;
 public class Capture {
 
 	public Capture() {}
+	
+	
 
 }

@@ -38,9 +38,14 @@ public class OrmUsage {
 				{"field3", "nnnn"}
 		};
 		
-		String[] where = new String[] {"id", "2"};
+		String[] where = new String[] {"id", "5"};
 		
 		DataObject db = new DataAccess();
+		db.createTable("table1", ddl).insert(dml);
+		//Thread.sleep(600000);
+		ArrayList<ArrayList<String>> resultSet = db.select(fields, where);
+		db.close();
+		System.out.println(Arrays.deepToString(resultSet.toArray()));
 		
 		
 		

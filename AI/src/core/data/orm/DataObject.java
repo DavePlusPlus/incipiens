@@ -13,6 +13,18 @@ import java.util.ArrayList;
 public interface DataObject {
 	
 	/**
+	 * Returns the name of the current table.
+	 * @return String table.
+	 */
+	public String getTable();
+	
+	/**
+	 * Set the name of the table to use.
+	 * @param table. String, name of the table to use.
+	 */
+	public DataObject setTable(String table);
+	
+	/**
 	 * Close Database connection.
 	 * @throws SQLException 
 	 */
