@@ -120,6 +120,8 @@ public class DataAccess implements DataObject {
 	}
 	
 	public DataAccess dropTable(String tableName) throws SQLException {
+		if(tableName.equals(this.table))
+			this.table = "";
 		return this.set("drop table if exists " + tableName);
 	}
 	
