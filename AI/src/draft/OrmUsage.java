@@ -4,7 +4,7 @@
 package draft;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import core.data.orm.DataAccess;
 import core.data.orm.DataObject;
 
@@ -41,7 +41,8 @@ public class OrmUsage {
 		String[] where = new String[] {"field3", "gggg"};
 		
 		DataObject db = new DataAccess();
-		ArrayList<ArrayList<String>> result = db.get("select id, field1, field2 from logTable where field3 = 'gggg'");
+		ArrayList<ArrayList<String>> dbtest = db.select("logTable", fields, where);
+		ArrayList<ArrayList<String>> dbtest2 = db.select("logTable", fields, where);
 		
 		
 		
@@ -66,9 +67,8 @@ public class OrmUsage {
 		test.add(subTest2);
 		test.add(subTest3);
 		
-		System.out.println(result);
-		
-		
+		System.out.println(dbtest);
+		System.out.println(Arrays.deepToString(test.toArray()));
 		
 		
 		String[][] blabla = new String[][] {

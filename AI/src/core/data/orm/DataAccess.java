@@ -151,10 +151,8 @@ public class DataAccess implements DataObject {
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {
-			if(statement != null) {
+			if(statement != null)
 				statement.close();
-				this.close();
-			}
 		}
 		return resultSet;
 	}
