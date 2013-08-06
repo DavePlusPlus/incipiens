@@ -38,11 +38,9 @@ public class OrmUsage {
 				{"field3", "nnnn"}
 		};
 		
-		String[] where = new String[] {"field3", "gggg"};
+		String[] where = new String[] {"id", "2"};
 		
 		DataObject db = new DataAccess();
-		ArrayList<ArrayList<String>> dbtest = db.select("logTable", fields, where);
-		ArrayList<ArrayList<String>> dbtest2 = db.select("logTable", fields, where);
 		
 		
 		
@@ -67,8 +65,6 @@ public class OrmUsage {
 		test.add(subTest2);
 		test.add(subTest3);
 		
-		System.out.println(dbtest);
-		System.out.println(Arrays.deepToString(test.toArray()));
 		
 		
 		String[][] blabla = new String[][] {
