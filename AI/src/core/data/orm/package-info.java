@@ -1,8 +1,8 @@
 /**
- * Use sormula.
+ * 
  */
 /**
- * @author david.herrera
+ * @author Dave (http://about.me/david.herrera)
  *
  */
 package core.data.orm;

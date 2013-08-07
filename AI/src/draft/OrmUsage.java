@@ -25,7 +25,7 @@ public class OrmUsage {
 				{"field3", "varchar(25)"}
 		};
 		
-		String[] fields = new String[] {"id", "field1", "field2"};
+		String[] fields = new String[] {"field2"};
 		
 		String[][] dml = new String[][] {
 				//{"id", "1"},
@@ -34,7 +34,7 @@ public class OrmUsage {
 				{"field3", "nnnn"}
 		};
 		
-		String[] where = new String[] {"field3", "nnnn"};
+		String[] where = new String[] {"id", "1"};
 		
 		String[][] data = new String[][] {
 				{"field1", "data1"},
@@ -42,14 +42,15 @@ public class OrmUsage {
 				{"field3", "data3"}
 		};
 		
-		DataObject db = new DataAccess("TempName");
-		db.renameTable("Table1");
+		DataObject db = new DataAccess("Table1");
+		//db.renameTable("Table1");
 		//db.createTable("table1", ddl).insert(dml);
 		//db.insert("table1", data);
 		//Thread.sleep(600000);
-		//ArrayList<ArrayList<String>> resultSet = db.select(fields, where);
+		ArrayList<ArrayList<String>> resultSet = db.select(fields, where);
 		db.close();
-		//System.out.println(Arrays.deepToString(resultSet.toArray()));
+		String strResultSet = resultSet.get(0).get(0);
+		System.out.println(strResultSet);
 		
 		
 		
@@ -74,7 +75,8 @@ public class OrmUsage {
 		test.add(subTest2);
 		test.add(subTest3);
 		
-		String subElement = test.get(1).get(1);
+		test.get(1).add("whatever");
+		String subElement = test.get(1).get(3);
 		
 		//System.out.println(subElement);
 		
