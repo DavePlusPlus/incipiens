@@ -21,20 +21,21 @@ public class DataAccess implements DataObject {
 	private String table = "";
 	
 	public DataAccess() throws Exception {
-		Class.forName("org.sqlite.JDBC");
-		this.connection = DriverManager.getConnection("jdbc:sqlite:Data/dbFile.db");
+		this.setParams("org.sqlite.JDBC", "jdbc:sqlite:Data/dbFile.db", "");
 	}
 	
 	public DataAccess(String table) throws Exception {
-		Class.forName("org.sqlite.JDBC");
-		this.connection = DriverManager.getConnection("jdbc:sqlite:Data/dbFile.db");
-		this.table = table;
+		this.setParams("org.sqlite.JDBC", "jdbc:sqlite:Data/dbFile.db", table);
 	}
 	
 	public DataAccess(String driver, String conDB, String table) throws Exception {
+		this.setParams(driver, conDB, table);
+	}
+	
+	private void setParams(String driver, String conDB, String table) throws Exception {
 		Class.forName(driver);
 		this.connection = DriverManager.getConnection(conDB);
-		this.table = table;
+		this.setTable(table);
 	}
 	
 	public String getTable() {
