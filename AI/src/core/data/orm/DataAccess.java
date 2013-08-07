@@ -110,7 +110,11 @@ public class DataAccess implements DataObject {
 	}
 	
 	public void close() throws SQLException {
-		this.connection.close();
+		try {
+			this.connection.close();
+		} catch(SQLException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	public DataAccess createTable(String tableName, String[][] fields) throws SQLException {
