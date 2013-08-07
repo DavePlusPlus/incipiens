@@ -32,6 +32,13 @@ public class DataAccess implements DataObject {
 		this.setParams(driver, conDB, table);
 	}
 	
+	/**
+	 * 
+	 * @param driver
+	 * @param conDB
+	 * @param table
+	 * @throws Exception
+	 */
 	private void setParams(String driver, String conDB, String table) throws Exception {
 		Class.forName(driver);
 		this.connection = DriverManager.getConnection(conDB);
