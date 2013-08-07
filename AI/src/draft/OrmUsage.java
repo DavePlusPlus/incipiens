@@ -16,14 +16,10 @@ public class OrmUsage {
 
 	public OrmUsage() {}
 
-	/**
-	 * @param args
-	 * @throws Exception 
-	 */
 	public static void main(String[] args) throws Exception {
 		
 		String[][] ddl = new String[][] {
-				{"id", "integer", "primary key"},
+				{"id", "integer", "primary key", "autoincrement"},
 				{"field1", "varchar(25)"},
 				{"field2", "integer"},
 				{"field3", "varchar(25)"}
@@ -32,20 +28,28 @@ public class OrmUsage {
 		String[] fields = new String[] {"id", "field1", "field2"};
 		
 		String[][] dml = new String[][] {
-				{"id", "5"},
+				//{"id", "1"},
 				{"field1", "oooo"},
 				{"field2", "500"},
 				{"field3", "nnnn"}
 		};
 		
-		String[] where = new String[] {"id", "5"};
+		String[] where = new String[] {"field3", "nnnn"};
 		
-		DataObject db = new DataAccess();
-		db.createTable("table1", ddl).insert(dml);
+		String[][] data = new String[][] {
+				{"field1", "data1"},
+				{"field2", "654"},
+				{"field3", "data3"}
+		};
+		
+		DataObject db = new DataAccess("TempName");
+		db.renameTable("Table1");
+		//db.createTable("table1", ddl).insert(dml);
+		//db.insert("table1", data);
 		//Thread.sleep(600000);
-		ArrayList<ArrayList<String>> resultSet = db.select(fields, where);
+		//ArrayList<ArrayList<String>> resultSet = db.select(fields, where);
 		db.close();
-		System.out.println(Arrays.deepToString(resultSet.toArray()));
+		//System.out.println(Arrays.deepToString(resultSet.toArray()));
 		
 		
 		
@@ -70,14 +74,11 @@ public class OrmUsage {
 		test.add(subTest2);
 		test.add(subTest3);
 		
+		String subElement = test.get(1).get(1);
+		
+		//System.out.println(subElement);
 		
 		
-		String[][] blabla = new String[][] {
-				{"field1", "data1"},
-				{"field2", "data2"},
-				{"field3", "data3"},
-				{"field4", "data4"}
-		};
 		
 	}
 	

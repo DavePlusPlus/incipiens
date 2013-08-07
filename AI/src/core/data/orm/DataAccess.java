@@ -114,77 +114,89 @@ public class DataAccess implements DataObject {
 	}
 	
 	public DataAccess createTable(String tableName, String[][] fields) throws SQLException {
-		if(this.table.isEmpty())
-			this.table = tableName;
+		if(this.getTable().isEmpty())
+			this.setTable(tableName);
 		return this.set("drop table if exists " + tableName).set("create table " + tableName + " (" + bidimensionalArrayToString(fields) + ")");
 	}
 	
 	public DataAccess dropTable(String tableName) throws SQLException {
-		if(tableName.equals(this.table))
-			this.table = "";
+		if(tableName.equals(this.getTable()))
+			this.setTable("");
 		return this.set("drop table if exists " + tableName);
 	}
 	
 	public DataAccess dropTable() throws SQLException {
-		return this.dropTable(this.table);
+		return this.dropTable(this.getTable());
 	}
 	
 	public DataAccess renameTable(String oldName, String newName) throws SQLException {
+		if(oldName.equals(this.getTable()))
+			this.setTable(newName);
 		return this.set("alter table " + oldName + " rename to " + newName);
 	}
 	
 	public DataAccess renameTable(String newName) throws SQLException {
-		String oldName = this.table;
-		this.table = newName;
-		return this.renameTable(oldName, newName);
+		return this.renameTable(this.getTable(), newName);
 	}
 	
 	public DataAccess addColumn(String tableName, String[] columnDefinition) throws SQLException {
+		if(this.getTable().isEmpty())
+			this.setTable(tableName);
 		return this.set("alter table " + tableName + " add column " + arrayToString(columnDefinition, " "));
 	}
 	
 	public DataAccess addColumn(String[] columnDefinition) throws SQLException {
-		return this.addColumn(this.table, columnDefinition);
+		return this.addColumn(this.getTable(), columnDefinition);
 	}
 	
 	public DataAccess truncateTable(String tableName) throws SQLException {
+		if(this.getTable().isEmpty())
+			this.setTable(tableName);
 		return this.set("delete from " + tableName);
 	}
 	
 	public DataAccess truncateTable() throws SQLException {
-		return this.truncateTable(this.table);
+		return this.truncateTable(this.getTable());
 	}
 	
 	public DataAccess insert(String tableName, String[][] data) throws SQLException {
+		if(this.getTable().isEmpty())
+			this.setTable(tableName);
 		return this.set("insert into " + tableName + " (" + doublePlainArrayData(data)[0] + ") values (" + doublePlainArrayData(data)[1] + ")");
 	}
 	
 	public DataAccess insert(String[][] data) throws SQLException {
-		return this.insert(this.table, data);
+		return this.insert(this.getTable(), data);
 	}
 	
 	public DataAccess update(String tableName, String[][] data, String[] where) throws SQLException {
+		if(this.getTable().isEmpty())
+			this.setTable(tableName);
 		return this.set("update " + tableName + " set " + singlePlainArrayData(data) + " where " + where[0] + " = '" + where[1] + "'");
 	}
 	
 	public DataAccess update(String[][] data, String[] where) throws SQLException {
-		return this.update(this.table, data, where);
+		return this.update(this.getTable(), data, where);
 	}
 	
 	public DataAccess delete(String tableName, String[] where) throws SQLException {
+		if(this.getTable().isEmpty())
+			this.setTable(tableName);
 		return this.set("delete from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
 	}
 	
 	public DataAccess delete(String[] where) throws SQLException {
-		return this.delete(this.table, where);
+		return this.delete(this.getTable(), where);
 	}
 	
 	public ArrayList<ArrayList<String>> select(String tableName, String[] fields, String[] where) throws SQLException {
+		if(this.getTable().isEmpty())
+			this.setTable(tableName);
 		return this.get("select " + arrayToString(fields, ", ") + " from " + tableName + " where " + where[0] + " = '" + where[1] + "'");
 	}
 	
 	public ArrayList<ArrayList<String>> select(String[] fields, String[] where) throws SQLException {
-		return this.select(this.table, fields, where);
+		return this.select(this.getTable(), fields, where);
 	}
 	
 	public ArrayList<ArrayList<String>> get(String sql) throws SQLException {
