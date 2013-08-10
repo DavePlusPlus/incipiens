@@ -4,12 +4,12 @@
 package core.data.orm;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import org.sqlite.SQLiteDataSource;
 
 /**
  * @author Dave (http://about.me/david.herrera)
@@ -21,27 +21,27 @@ public class DataAccess implements DataObject {
 	private String table = "";
 	
 	public DataAccess() throws Exception {
-		this.setParams("org.sqlite.JDBC", "jdbc:sqlite:Data/dbFile.db", "");
+		this.setParams("jdbc:sqlite:Data/dbFile.db", "");
 	}
 	
 	public DataAccess(String table) throws Exception {
-		this.setParams("org.sqlite.JDBC", "jdbc:sqlite:Data/dbFile.db", table);
+		this.setParams("jdbc:sqlite:Data/dbFile.db", table);
 	}
 	
-	public DataAccess(String driver, String conDB, String table) throws Exception {
-		this.setParams(driver, conDB, table);
+	public DataAccess(String conDB, String table) throws Exception {
+		this.setParams(conDB, table);
 	}
 	
 	/**
 	 * 
-	 * @param driver
 	 * @param conDB
 	 * @param table
 	 * @throws Exception
 	 */
-	private void setParams(String driver, String conDB, String table) throws Exception {
-		Class.forName(driver);
-		this.connection = DriverManager.getConnection(conDB);
+	private void setParams(String conDB, String table) throws Exception {
+		SQLiteDataSource ds = new SQLiteDataSource();
+		ds.setUrl(conDB);
+		this.connection = ds.getConnection();
 		this.setTable(table);
 	}
 	

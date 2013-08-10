@@ -4,7 +4,6 @@
 package draft;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import core.data.orm.DataAccess;
 import core.data.orm.DataObject;
 
@@ -28,7 +27,6 @@ public class OrmUsage {
 		String[] fields = new String[] {"field2"};
 		
 		String[][] dml = new String[][] {
-				//{"id", "1"},
 				{"field1", "oooo"},
 				{"field2", "500"},
 				{"field3", "nnnn"}
@@ -42,10 +40,9 @@ public class OrmUsage {
 				{"field3", "data3"}
 		};
 		
-		DataObject db = new DataAccess("Table1");
-		//db.renameTable("Table1");
-		//db.createTable("table1", ddl).insert(dml);
-		//db.insert("table1", data);
+		DataObject db = new DataAccess();
+		db.createTable("table1", ddl).insert(dml);
+		db.insert(data);
 		//Thread.sleep(600000);
 		ArrayList<ArrayList<String>> resultSet = db.select(fields, where);
 		db.close();
