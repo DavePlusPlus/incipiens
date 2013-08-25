@@ -1,5 +1,5 @@
 /**
- * 
+ * ORM usage example class.
  */
 package draft;
 
@@ -19,66 +19,49 @@ public class OrmUsage {
 		
 		String[][] ddl = new String[][] {
 				{"id", "integer", "primary key", "autoincrement"},
-				{"field1", "varchar(25)"},
-				{"field2", "integer"},
-				{"field3", "varchar(25)"}
+				{"name", "varchar(25)"},
+				{"title", "varchar(25)"},
+				{"age", "integer"},
+				{"gender", "varchar(25)"}
 		};
 		
-		String[] fields = new String[] {"field2"};
-		
-		String[][] dml = new String[][] {
-				{"field1", "oooo"},
-				{"field2", "500"},
-				{"field3", "nnnn"}
+		String[][] dml1 = new String[][] {
+				{"name", "Dave"},
+				{"title", "Developer"},
+				{"age", "21"},
+				{"gender", "male"}
 		};
+		
+		String[][] dml2 = new String[][] {
+				{"name", "Elise"},
+				{"title", "chef"},
+				{"age", "35"},
+				{"gender", "female"}
+		};
+		
+		String[] fields = new String[] {"name", "title", "age"};
 		
 		String[] where = new String[] {"id", "1"};
 		
-		String[][] data = new String[][] {
-				{"field1", "data1"},
-				{"field2", "654"},
-				{"field3", "data3"}
-		};
-		
+		//Instance of new database object.
 		DataObject db = new DataAccess();
-		db.createTable("table1", ddl).insert(dml);
-		db.insert(data);
-		//Thread.sleep(600000);
+		
+		//Create a table and store some data.
+		db.createTable("table1", ddl).insert(dml1).insert(dml2);
+		
+		//Let's make a query.
 		ArrayList<ArrayList<String>> resultSet = db.select(fields, where);
+		
+		String name = resultSet.get(0).get(0);
+		String title = resultSet.get(0).get(1);
+		String age = resultSet.get(0).get(2);
+		
+		System.out.println("Name: " + name);
+		System.out.println("Title: " + title);
+		System.out.println("Age: " + age);
+		
+		//We don't need this connection anymore.
 		db.close();
-		String strResultSet = resultSet.get(0).get(0);
-		System.out.println(strResultSet);
-		
-		
-		
-		ArrayList<ArrayList<String>> test = new ArrayList<ArrayList<String>>();
-		
-		ArrayList<String> subTest1 = new ArrayList<String>();
-		subTest1.add("1subData1");
-		subTest1.add("1subData2");
-		subTest1.add("1subData3");
-		
-		ArrayList<String> subTest2 = new ArrayList<String>();
-		subTest2.add("2subData1");
-		subTest2.add("2subData2");
-		subTest2.add("2subData3");
-		
-		ArrayList<String> subTest3 = new ArrayList<String>();
-		subTest3.add("3subData1");
-		subTest3.add("3subData2");
-		subTest3.add("3subData3");
-		
-		test.add(subTest1);
-		test.add(subTest2);
-		test.add(subTest3);
-		
-		test.get(1).add("whatever");
-		String subElement = test.get(1).get(3);
-		
-		//System.out.println(subElement);
-		
-		
-		
 	}
 	
 	
